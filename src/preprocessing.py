@@ -5,7 +5,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
 def load_and_preprocess_data(
-    data_path="data/Social_Network_Ads.csv",
+    data_path="DATA/Social_Network_Ads.csv",
     test_size=0.2,
     random_state=42
 ):
