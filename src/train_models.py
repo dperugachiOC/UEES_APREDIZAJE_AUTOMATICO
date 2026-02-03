@@ -41,4 +41,32 @@ def train_all_models(X_train, y_train, preprocess_scaled, preprocess_no_scale):
     random_forest = Pipeline(steps=[
         ("preprocess", preprocess_no_scale),
         ("model", RandomForestClassifier(
-            n_estimat_
+            n_estimators=200,
+            random_state=42,
+            class_weight="balanced_subsample"
+        ))
+    ])
+
+    # 4. Regresión Logística
+    logistic_regression = Pipeline(steps=[
+        ("preprocess", preprocess_scaled),
+        ("model", LogisticRegression(
+            max_iter=2000,
+            class_weight="balanced",
+            solver="lbfgs"
+        ))
+    ])
+
+    models = {
+        "Decision Tree": decision_tree,
+        "SVM": svm,
+        "Random Forest": random_forest,
+        "Logistic Regression": logistic_regression
+    }
+
+    # Entrenamiento
+    for name, model in models.items():
+        model.fit(X_train, y_train)
+        print(f"Modelo entrenado: {name}")
+
+    return models
