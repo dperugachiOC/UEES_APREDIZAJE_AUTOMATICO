@@ -23,5 +23,8 @@ def train_all_models(X_train, y_train, preprocess_scaled, preprocess_no_scale):
         ("model", SVC())
     ])
 
-    svm_params = {
-        "model__kernel": ["linear", "]()
+svm_params = {
+    "model__kernel": ["linear", "rbf"],
+    "model__C": [0.1, 1, 10, 100],
+    "model__gamma": ["scale", "auto"]
+}
