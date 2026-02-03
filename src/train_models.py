@@ -23,8 +23,22 @@ def train_all_models(X_train, y_train, preprocess_scaled, preprocess_no_scale):
         ("model", SVC())
     ])
 
-svm_params = {
-    "model__kernel": ["linear", "rbf"],
-    "model__C": [0.1, 1, 10, 100],
-    "model__gamma": ["scale", "auto"]
-}
+    svm_params = {
+        "model__kernel": ["linear", "rbf"],
+        "model__C": [0.1, 1, 10, 100],
+        "model__gamma": ["scale", "auto"]
+    }
+
+    svm = GridSearchCV(
+        svm_pipeline,
+        svm_params,
+        scoring="f1",
+        cv=5,
+        n_jobs=-1
+    )
+
+    # 3. Random Forest
+    random_forest = Pipeline(steps=[
+        ("preprocess", preprocess_no_scale),
+        ("model", RandomForestClassifier(
+            n_estimat_
